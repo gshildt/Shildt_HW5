@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-@main
-struct Shildt_HW5App: App {
+struct ProfileApp: App {
+    @State private var isDarkMode = false
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(isDarkMode: $isDarkMode)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
