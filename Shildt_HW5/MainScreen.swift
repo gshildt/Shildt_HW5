@@ -17,10 +17,8 @@ struct MainScreen: View {
                         .cornerRadius(8)
                 }
 
-                Button(action: {
-                    isDarkMode.toggle()
-                }) {
-                    Text("Toggle Theme")
+                NavigationLink(destination: SettingsScreen(isDarkMode: $isDarkMode)) {
+                    Text("Settings")
                         .padding()
                         .background(Color.gray)
                         .foregroundColor(.white)

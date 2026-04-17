@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-
-struct ProfileApp: App {
+@main
+struct ProfileAppScene: App {
     @State private var isDarkMode = false
 
     var body: some Scene {
         WindowGroup {
-            ContentView(isDarkMode: $isDarkMode)
+            MainScreen(isDarkMode: $isDarkMode)
                 .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
