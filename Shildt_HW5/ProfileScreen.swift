@@ -3,49 +3,56 @@ import PhotosUI
 
 struct ProfileScreen: View {
     @Binding var isDarkMode: Bool
-    @State private var name: String = "John Doe"
-    @State private var role: String = "Software Developer"
-    @State private var profileImage: UIImage? = nil
+    @Binding var name: String
+    @Binding var role: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var profileImage: UIImage?
     @State private var isImagePickerPresented: Bool = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            if let profileImage = profileImage {
-                Image(uiImage: profileImage)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-            } else {
-                Circle()
-                    .fill(Color.blue)
-                    .frame(width: 100, height: 100)
-                    .onTapGesture {
-                        isImagePickerPresented = true
+        Components.Scaffold(
+            appBar: Components.AppBar(title: "Profile"),
+            content: {
+                VStack(spacing: 20) {
+                    if let profileImage = profileImage {
+                        Image(uiImage: profileImage)
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                    } else {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 100, height: 100)
                     }
-            }
 
-            TextField("Enter Name", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text(name)
+                        .font(.title)
+                        .fontWeight(.bold)
+
+                    Text(role)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+
+                    Text("Email: \(email)")
+                        .font(.body)
+
+                    Text("Phone: \(phone)")
+                        .font(.body)
+
+                    Button(action: {
+                        isDarkMode.toggle()
+                    }) {
+                        Text("Toggle Dark Mode")
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
                 .padding()
-
-            TextField("Enter Role", text: $role)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button(action: {
-                // Save profile details
-            }) {
-                Text("Save Profile")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
             }
-        }
-        .navigationTitle("Profile")
-        .sheet(isPresented: $isImagePickerPresented) {
-            ImagePicker(selectedImage: $profileImage)
-        }
+        )
     }
 }
 
